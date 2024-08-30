@@ -1,27 +1,19 @@
-# RAG with Llama3.1 on Google Colab
+# Chat 'Privately' in Google Colab with Ollama/llama3.1/RAG 
 
-This repository contains a Google Colab notebook that demonstrates how to use Retrieval-Augmented Generation (RAG) with the Llama3.1 model from Ollama. The notebook allows users to upload a file, process its content, and ask questions about the provided context using a Gradio interface.
+This repository contains a Google Colab notebook that demonstrates how to set up and run a Retrieval-Augmented Generation (RAG) system using Ollama's Llama3.1 model. The notebook includes steps to install necessary packages, set up an xterm terminal, and run the Ollama server. It also provides a Gradio interface for uploading files and asking questions based on the provided context.
 
-## Features
-
-- Load and process documents from a URL or an uploaded file.
-- Split documents into chunks for efficient processing.
-- Create embeddings and a vector store using Ollama's models.
-- Use the Llama3.1 model to answer questions based on the provided context.
-- Interactive Gradio interface for easy user interaction.
-
-## Getting Started
+## Setup and Running in Google Colab
 
 ### Prerequisites
 
 - A Google account to use Google Colab.
 - Basic knowledge of Python and Jupyter notebooks.
 
-### Running the Notebook
+### Steps to Run
 
-1. **Open the Notebook in Google Colab**
+1. **Open the Colab Notebook**
 
-   Click the badge below to open the notebook directly in Google Colab:
+   Click the badge below to open the notebook in Google Colab:
 
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mrodgers/ollama_rag_colab/blob/main/Testing_Ollama_RAG.ipynb)
 
@@ -30,48 +22,41 @@ This repository contains a Google Colab notebook that demonstrates how to use Re
    Run the following cells to install the necessary packages:
 
    ```python
-   !pip install colab-xterm
+   !pip install colab-xterm -q
    %load_ext colabxterm
    %xterm
    ```
 
-   In the terminal that opens, run the following commands:
+   ```python
+   !pip -q install langchain langchain-core langchain-community ollama beautifulsoup4 chromadb gradio pypdf
+   ```
+
+3. **Set Up xterm and Ollama**
+
+   After running the `%xterm` cell, an xterm terminal will open. In the terminal, run the following commands:
 
    ```bash
    curl -fsSL https://ollama.com/install.sh | sh
-   ollama serve &
    ollama pull llama3.1 &
    ollama pull nomic-embed-text &
+   ollama serve &
    ```
 
-3. **Install Python Libraries**
+4. **Run the Main Script**
 
-   Run the following cell to install the required Python libraries:
+   The main script includes functions to load text and PDF files, process them, and create a vector store. It also defines a Gradio interface for interacting with the RAG system.
 
-   ```python
-   !pip install langchain langchain-core langchain-community beautifulsoup4 chromadb gradio -q
-   ```
 
-4. **Run the Code**
+5. **Use the User Interface**
 
-   Execute the remaining cells in the notebook to load the models, process the documents, and launch the Gradio interface.
+   The interface allows you to upload a file and ask questions about its content. Simply upload a text or PDF file and enter your question in the provided textbox.
 
-## Usage
+## Notes
 
-### Uploading a File and Asking Questions
+- **Is Colab Safe for Private Data?**
 
-1. **Upload a File**
-
-   Use the Gradio interface to upload a file containing the text you want to process.
-
-2. **Ask a Question**
-
-   Enter your question in the provided textbox and click the submit button. The model will process the question and provide an answer based on the content of the uploaded file.
+  Colab is NOT safe for any Cisco data. In general, it is as safe as your private Google Docs. No one can access your private Colab notebooks, and Google has an incentive to make it as safe as possible for their reputation. However, avoid sharing any sensitive or confidential information.
 
 ## Acknowledgements
 
 Thanks to [Tharindu Madhusanka](https://medium.com/@tharindumadhusanka99/llama3-rag-on-google-colab-73c43aa53281) for some of the code used in this notebook.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
